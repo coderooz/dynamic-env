@@ -1,0 +1,35 @@
+name: Documentation
+description: Report incorrect, missing, or confusing documentation
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where is the issue?
+      description: File path, README section, or URL.
+      placeholder: "README.md → Project Structure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong or missing?
+      description: Describe the inaccuracy, gap, or confusing part.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      description: If you know how to fix it, tell us — or open a PR!
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues for duplicates
+          required: true

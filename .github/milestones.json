@@ -1,0 +1,17 @@
+[
+  {
+    "title": "v0.1.0 — Repository Scaffolding",
+    "description": "Professional repository setup: governance docs, CI pipeline, issue/PR templates, VS Code configuration, GitHub metadata (labels, milestones, funding).",
+    "state": "closed"
+  },
+  {
+    "title": "v0.2.0 — Dynamic Key Core",
+    "description": "MongoDB-backed key store, management API routes, and the runtime key-resolution mechanism (add/rotate/revoke without redeploy).",
+    "state": "open"
+  },
+  {
+    "title": "v1.0.0 — Live Validation",
+    "description": "Deploy Dynamic-Env and verify dynamic API-key injection against an already-deployed project end to end.",
+    "state": "open"
+  }
+]
