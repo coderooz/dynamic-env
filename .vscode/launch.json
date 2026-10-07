@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: Dev Server",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev"
+    },
+    {
+      "name": "Next.js: Dev Server (Inspect)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev -- --inspect"
+    },
+    {
+      "name": "Next.js: Build",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run build"
+    },
+    {
+      "name": "Next.js: Production Server",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run start"
+    },
+    {
+      "name": "Attach to Next.js (9229)",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Next.js: Dev + Attach",
+      "configurations": ["Next.js: Dev Server (Inspect)", "Attach to Next.js (9229)"],
+      "stopAll": true,
+      "preLaunchTask": ""
+    }
+  ]
+}

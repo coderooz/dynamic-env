@@ -1,0 +1,46 @@
+{
+  // Editor behavior
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.rulers": [100],
+  "editor.inlayHints.enabled": "on",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+
+  // Search
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/.workspace": true,
+    "**/package-lock.json": true
+  },
+  "search.followSymlinks": false,
+
+  // TypeScript — use the workspace version
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+
+  // ESLint (flat config)
+  "eslint.useFlatConfig": true,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+
+  // Tailwind CSS IntelliSense
+  "tailwindcss.experimentalClassRegex": [["cn\\(([^)]*)\\)", "'([^']*)'"]],
+
+  // File associations
+  "*.md": "markdown",
+  ".env*": "dotenv",
+
+  // Terminal
+  "terminal.integrated.cwd": "${workspaceFolder}",
+
+  // Enable prompts for recommended extensions
+  "extensions.ignoreRecommendations": false
+}
