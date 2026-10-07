@@ -29,22 +29,24 @@ if (-not (gh repo view $repoRef --json name 2>$null)) {
 }
 
 # --- Labels ---------------------------------------------------------------
-$labelsPath = Join-Path $PSScriptRoot ".." ".github" "labels.json"
-$labels = Get-Content $labelsPath -Raw | ConvertFrom-Json
+$githubDir = Join-Path (Join-Path $PSScriptRoot "..") ".github"
+$labelsPath = Join-Path $githubDir "labels.json"
+$labels = Get-Content $labelsPath -Raw -Encoding UTF8 | ConvertFrom-Json
 
 Write-Host "==> Syncing labels to $repoRef"
 foreach ($label in $labels) {
-  gh label create $label.name `
+  gh label create "$($label.name)" `
     --repo $repoRef `
-    --color $label.color `
-    --description $label.description `
+    --color "$($label.color)" `
+    --description "$($label.description)" `
     --force | Out-Null
+  if ($LASTEXITCODE -ne 0) { throw "Failed to sync label '$($label.name)'." }
   Write-Host "    label: $($label.name)"
 }
 
 # --- Milestones -----------------------------------------------------------
-$milestonesPath = Join-Path $PSScriptRoot ".." ".github" "milestones.json"
-$milestones = Get-Content $milestonesPath -Raw | ConvertFrom-Json
+$milestonesPath = Join-Path $githubDir "milestones.json"
+$milestones = Get-Content $milestonesPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $existing = @(gh api "repos/$repoRef/milestones?state=all&per_page=100" | ConvertFrom-Json)
 
 Write-Host "==> Syncing milestones to $repoRef"
@@ -52,15 +54,17 @@ foreach ($milestone in $milestones) {
   $match = $existing | Where-Object { $_.title -eq $milestone.title } | Select-Object -First 1
   if ($match) {
     gh api -X PATCH "repos/$repoRef/milestones/$($match.number)" `
-      -f title=$milestone.title `
-      -f description=$milestone.description `
-      -f state=$milestone.state | Out-Null
+      -f "title=$($milestone.title)" `
+      -f "description=$($milestone.description)" `
+      -f "state=$($milestone.state)" | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw "Failed to update milestone '$($milestone.title)'." }
     $action = "updated"
   } else {
     gh api -X POST "repos/$repoRef/milestones" `
-      -f title=$milestone.title `
-      -f description=$milestone.description `
-      -f state=$milestone.state | Out-Null
+      -f "title=$($milestone.title)" `
+      -f "description=$($milestone.description)" `
+      -f "state=$($milestone.state)" | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw "Failed to create milestone '$($milestone.title)'." }
     $action = "created"
   }
   Write-Host "    milestone ($action): $($milestone.title)"
